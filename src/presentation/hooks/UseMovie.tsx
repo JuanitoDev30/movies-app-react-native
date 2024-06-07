@@ -54,7 +54,10 @@ export const UseMovies = () => {
       const nextPage = await UseCases.moviesPopularUseCase(movieDbFetcher, {
         page: popularPage,
       });
-      setPopular(prev => [...prev, ...nextPage]);
+      setPopular(prev => [
+        ...prev,
+        ...nextPage.map(movie => ({...movie, key: movie.id})),
+      ]); //---> Nos aseguramos de que no se repitan las keys
     },
   };
 };
